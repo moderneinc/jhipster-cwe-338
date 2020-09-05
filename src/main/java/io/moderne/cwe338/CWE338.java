@@ -1,13 +1,15 @@
 package io.moderne.cwe338;
 
 import org.openrewrite.Tree;
-import org.openrewrite.java.*;
+import org.openrewrite.java.AddField;
+import org.openrewrite.java.JavaParser;
+import org.openrewrite.java.JavaRefactorVisitor;
+import org.openrewrite.java.ShiftFormatRightVisitor;
 import org.openrewrite.java.tree.J;
 import org.openrewrite.java.tree.TreeBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.emptyList;

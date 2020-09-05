@@ -3,15 +3,10 @@ package io.moderne.cwe338;
 import com.google.cloud.functions.HttpFunction;
 import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
-import org.openrewrite.Change;
-import org.openrewrite.Parser;
+import org.apache.commons.io.Charsets;
 import org.openrewrite.Refactor;
 import org.openrewrite.java.JavaParser;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Paths;
-import java.util.Collections;
+import org.openrewrite.java.tree.J;
 
 public class CloudFunction implements HttpFunction {
     private static final JavaParser parser = JavaParser.fromJavaVersion()
@@ -23,21 +18,12 @@ public class CloudFunction implements HttpFunction {
 
     @Override
     public void service(HttpRequest request, HttpResponse response) throws Exception {
-        Parser.Input input = new Parser.Input(
-                Paths.get("RandomUtils.java"),
-                () -> {
-                    try {
-                        return request.getInputStream();
-                    } catch (IOException e) {
-                        throw new UncheckedIOException(e);
-                    }
-                }
-        );
-
-        Change change = refactor.fix(parser.parseInputs(Collections.singleton(input), null))
+        J.CompilationUnit fixed = refactor.fixed(parser.reset()
+                .parse(new String(request.getInputStream().readAllBytes(), Charsets.UTF_8))
                 .iterator()
-                .next();
+                .next());
 
-        response.getWriter().write(change.getFixed().printTrimmed());
+        assert fixed != null;
+        response.getWriter().write(fixed.printTrimmed());
     }
 }

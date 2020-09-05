@@ -25,6 +25,8 @@ configurations.all {
 }
 
 dependencies {
+    compileOnly("com.google.cloud.functions:functions-framework-api:latest.release")
+
     implementation("org.openrewrite:rewrite-java-11:latest.integration")
     implementation("org.apache.commons:commons-lang3:3.11")
     implementation("io.javalin:javalin:latest.release")

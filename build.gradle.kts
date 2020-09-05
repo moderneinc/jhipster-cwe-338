@@ -25,8 +25,10 @@ configurations.all {
 }
 
 dependencies {
-    implementation("org.openrewrite:rewrite-java:latest.integration")
+    implementation("org.openrewrite:rewrite-java-11:latest.integration")
     implementation("org.apache.commons:commons-lang3:3.11")
+    implementation("io.javalin:javalin:latest.release")
+    implementation("ch.qos.logback:logback-classic:1.0.13")
 
     testImplementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -35,9 +37,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:latest.release")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:latest.release")
 
-    testRuntimeOnly("ch.qos.logback:logback-classic:1.0.13")
-
-    testImplementation("org.openrewrite:rewrite-java-11:latest.integration")
     testImplementation("org.openrewrite:rewrite-test:latest.integration")
 
     testImplementation("org.assertj:assertj-core:latest.release")

@@ -1,12 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.*
 
 plugins {
-    `java-library`
+    application
     id("org.jetbrains.kotlin.jvm") version "1.4.0"
 }
 
 group = "io.moderne"
+
+application {
+    mainClass.set("io.moderne.cwe338.Main")
+}
 
 repositories {
     mavenLocal()

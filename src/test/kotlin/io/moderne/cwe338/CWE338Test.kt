@@ -16,6 +16,8 @@ class CWE338Test: RefactorVisitorTestForParser<J.CompilationUnit> {
     @Test
     fun cwe338() = assertRefactored(
             before = """
+                package io.moderne.service.util;
+                
                 import org.apache.commons.lang3.RandomStringUtils;
     
                 public class RandomUtil {
@@ -35,23 +37,26 @@ class CWE338Test: RefactorVisitorTestForParser<J.CompilationUnit> {
                     public static String generateResetKey() {
                         return RandomStringUtils.randomNumeric(DEF_COUNT);
                     }
-                    
+                
                     public static String generateSeriesData() {
                         return RandomStringUtils.randomAlphanumeric(DEF_COUNT);
                     }
-                    
+                
                     public static String generateTokenData() {
                         return RandomStringUtils.randomAlphanumeric(DEF_COUNT);
                     }
                 }
             """,
             after = """
+                package io.moderne.service.util;
+
                 import org.apache.commons.lang3.RandomStringUtils;
+                
                 import java.security.SecureRandom;
                 
                 public class RandomUtil {
-                    private static final int DEF_COUNT = 20;
                     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+                    private static final int DEF_COUNT = 20;
                 
                     static {
                         SECURE_RANDOM.nextBytes(new byte[64]);
@@ -75,7 +80,7 @@ class CWE338Test: RefactorVisitorTestForParser<J.CompilationUnit> {
                     public static String generateResetKey() {
                         return generateRandomAlphanumericString();
                     }
-
+                
                     public static String generateSeriesData() {
                         return generateRandomAlphanumericString();
                     }

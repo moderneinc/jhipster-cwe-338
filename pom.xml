@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.openrewrite</groupId>
             <artifactId>rewrite-java-11</artifactId>
-            <version>5.0.0</version>
+            <version>5.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -31,10 +31,14 @@
             <version>3.11</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.0.13</version>
-            <scope>runtime</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -63,7 +67,7 @@
         <dependency>
             <groupId>org.openrewrite</groupId>
             <artifactId>rewrite-test</artifactId>
-            <version>5.0.0</version>
+            <version>5.1.0</version>
         </dependency>
     </dependencies>
 
@@ -84,7 +88,7 @@
                 <artifactId>function-maven-plugin</artifactId>
                 <version>0.9.4</version>
                 <configuration>
-                    <functionTarget>functions.HelloWorld</functionTarget>
+                    <functionTarget>io.moderne.cwe338.CloudFunction</functionTarget>
                 </configuration>
             </plugin>
             <plugin>

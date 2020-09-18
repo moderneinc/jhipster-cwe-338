@@ -31,7 +31,7 @@ public class CWE338 extends JavaRefactorVisitor {
     public J visitClassDecl(J.ClassDecl classDecl) {
         J.CompilationUnit cu = getCursor().firstEnclosing(J.CompilationUnit.class);
         if (cu != null && cu.getPackageDecl() != null &&
-                cu.getPackageDecl().printTrimmed().endsWith(".service.util") &&
+                (cu.getPackageDecl().printTrimmed().endsWith(".service.util") || cu.getPackageDecl().printTrimmed().endsWith(".services.util")) &&
                 classDecl.getSimpleName().equals("RandomUtil")) {
             andThen(new AddField.Scoped(classDecl,
                     Arrays.asList(
@@ -54,7 +54,7 @@ public class CWE338 extends JavaRefactorVisitor {
         @Override
         public J visitCompilationUnit(J.CompilationUnit cu) {
             parser = JavaParser.fromJavaVersion()
-                    .classpath(JavaParser.dependenciesFromClasspath("commons-lang3"))
+                    .classpath(JavaParser.dependenciesFromClasspath("commons-lang3", "commons-lang"))
                     .build();
             return super.visitCompilationUnit(cu);
         }
